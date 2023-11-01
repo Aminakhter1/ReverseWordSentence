@@ -1,19 +1,30 @@
-function reverseWords(sentence) {
-  // split the sentence into words
-  const words = sentence.split(" ");
+function reverseWordSentence(sentence) {
+  let reversedSentence = "";
+  let wordStart = 0;
+  for (let i = 0; i < sentence.length; i++) {
+    if (sentence[i] === " " || i === sentence.length - 1) {
+      // Found a word boundary or reached the end of the sentence
+      const wordEnd = i === sentence.length - 1 ? i : i - 1;
+      reversedSentence += reverseWord(sentence, wordStart, wordEnd);
 
-  // reverse each word and store them in an array
-  const reversedWords = words.map((word) => {
-    // Reverse the characters of the word
-    return word.split("").reverse().join("");
-  });
+      if (i !== sentence.length - 1) {
+        reversedSentence += " ";
+      }
 
-  const reversedSentence = reversedWords.join(" ");
-
-  return reversedSentence;
+      wordStart = i + 1;
+    }
+  }
+   return reversedSentence;
+}
+function reverseWord(sentence, start, end) {
+  let reversedWord = "";
+  for (let i = end; i >= start; i--) {
+    reversedWord += sentence[i];
+  }
+  return reversedWord;
 }
 
-// Example usage:
+// Example used
 const inputSentence = "This is a sunny day";
-const reversedSentence = reverseWords(inputSentence);
-console.log(reversedSentence); // Output: "sihT si a ynnus yad"
+const reversedSentence = reverseWordSentence(inputSentence);
+console.log(reversedSentence);
